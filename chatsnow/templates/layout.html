@@ -1,0 +1,56 @@
+{% load static %}
+{% load static tailwind_tags %}
+
+
+<!DOCTYPE html >
+<html lang="en">
+<head>
+  {% tailwind_css %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} 
+        Chats Now
+        {% endblock %}
+    </title>
+
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-blue-200">
+    <div>
+        <nav class="bg-gradient-to-b from-blue-50 to-blue-200 w-screen h-12 flex items-center justify-between px-4 py-3">
+              <a class="italic text-deepBlue font-mullish font-bold text-xl no-underline" href="{% url "post_list" %}">ChatNow</a>
+              <div class="relative flex items-center justify-between space-x-4">
+                <ul class="relative flex items-center justify-between space-x-4 pt-3">
+                  <li>
+                    <a class="text-grayBlue text-l no-underline" href="{% url "post_list" %}">Home</a>
+                  </li>
+                  <li>
+                    <a class="text-grayBlue text-l no-underline" href="#">About</a>
+                  </li>
+                </ul>
+
+                <form method="POST" action="{% url 'search' %}">
+                  {% csrf_token %}
+                  <input class="px-4 border rounded-md" type="text" name="search_data">
+                  <button class="text-white font-mullish font-semibold border bg-lightBlue hover:bg-lightBlue500 px-3 py-2 rounded-md" type="submit" >Search</button>
+                </form>
+
+                {% if user.is_authenticated %}
+                <form action="{% url "logout" %}" method="post">
+                  {% csrf_token %}
+                  <button class="bg-lightBlue500 hover:bg-red-600 text-sm text-white border rounded items-center px-3 py-2 font-mullish font-semibold" type="submit">Logout</button>
+                </form>
+                {% else %}
+                <a href="{% url "login" %}" class="text-lightBlue hover:bg-lightBlue500 no-underline border border-black rounded-sm px-3 py-2 font-mullish text-sm">Login</a>
+                <a href="{% url "register" %}" class="text-white py-2 px-3 no-underline border rounded-md bg-lightBlue hover:bg-lightBlue500 font-mullish font-semibold text-sm">Sign Up</a>
+                {% endif %}
+                <a class = "text-white items-center py-2 px-3 no-underline border rounded-md bg-lightBlue hover:bg-lightBlue500 font-semibold font-mullish text-sm" href="{% url "post_create" %}">+ Post</a>
+              </div>
+          </nav>
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+</body>
+</html>

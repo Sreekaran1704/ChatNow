@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chats Post
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-center font-mullish font-semibold text-lg"> {%if form.instance.pk %} 
+    Edit post 
+    {% else %} 
+    New Post 
+    {% endif %}
+</h2>
+
+<form method="post" enctype="multipart/form-data" class="form">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <button class="bg-lightBlue hover:bg-lightBlue500 border rounded-md px-3 py-2 font-mullish font-semibold text-white" type="submit">Post</button>
+</form>
+<a href="{% url "post_list" %}" class=" bg-lightBlue hover:bg-lightBlue500 border rounded-md px-3 py-2 font-mullish font-semibold text-white">Back to Posts</a>
+{% endblock %}

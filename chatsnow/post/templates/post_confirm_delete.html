@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chats Post
+{% endblock %}
+
+{% block content %}
+<h1>Welcome to Chats Now</h1>
+
+<h2>Do you really want to delete this post ?</h2>
+
+<form method = "POST" >
+    {% csrf_token %}
+    <button class="btn btn-danger">Delete</button>
+    <a href="{% url "post_list" %}">Cancel</a>
+</form>
+
+{% endblock %}
